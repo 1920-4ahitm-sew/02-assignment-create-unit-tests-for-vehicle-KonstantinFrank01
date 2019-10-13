@@ -47,8 +47,12 @@ public class VehicleEndpointT {
         assertThat(vehicle.getString("brand"),equalTo("Opel 44"));
         assertThat(vehicle.getString("type"),startsWith("Commodore"));
 
+        //GET with id
         JsonObject dedicatedVehicle = this.target.path("45").request(MediaType.APPLICATION_JSON).get(JsonObject.class);
         assertThat(dedicatedVehicle.getString("brand"),containsString("45"));
         assertThat(dedicatedVehicle.getString("brand"),equalTo("Opel 45"));
+
+        Response deleteResponse = this.target.path("44").request(MediaType.APPLICATION_JSON).delete();
+        assertThat(deleteResponse.getStatus(),is(204)); //no content
     }
 }
