@@ -46,5 +46,9 @@ public class VehicleEndpointT {
         JsonObject vehicle = payload.getJsonObject(0);
         assertThat(vehicle.getString("brand"),equalTo("Opel 44"));
         assertThat(vehicle.getString("type"),startsWith("Commodore"));
+
+        JsonObject dedicatedVehicle = this.target.path("45").request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+        assertThat(dedicatedVehicle.getString("brand"),containsString("45"));
+        assertThat(dedicatedVehicle.getString("brand"),equalTo("Opel 45"));
     }
 }
