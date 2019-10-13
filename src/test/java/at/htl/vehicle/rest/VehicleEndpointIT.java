@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.core.IsNot.not;
 
-public class VehicleEndpointT {
+public class VehicleEndpointIT {
     private Client client;
     private WebTarget target;
 
@@ -27,13 +27,13 @@ public class VehicleEndpointT {
         this.target = client.target("http://localhost:8080/vehicle/api/vehicle");
     }
 
-    /*@Test
+    @Test
     public void fetchVehicle() {
         Response response = (Response) this.target.request(MediaType.TEXT_PLAIN).get();
         assertThat(response.getStatus(), is(200));
         String payload = response.readEntity(String.class);
         System.out.println("payload = " + payload);
-    }*/
+    }
 
     @Test
     public void crud() {
@@ -44,15 +44,15 @@ public class VehicleEndpointT {
         assertThat(payload, not(empty()));
 
         JsonObject vehicle = payload.getJsonObject(0);
-        assertThat(vehicle.getString("brand"),equalTo("Opel 44"));
+        assertThat(vehicle.getString("brand"),equalTo("Opel 42"));
         assertThat(vehicle.getString("type"),startsWith("Commodore"));
 
         //GET with id
-        JsonObject dedicatedVehicle = this.target.path("45").request(MediaType.APPLICATION_JSON).get(JsonObject.class);
-        assertThat(dedicatedVehicle.getString("brand"),containsString("45"));
-        assertThat(dedicatedVehicle.getString("brand"),equalTo("Opel 45"));
+        JsonObject dedicatedVehicle = this.target.path("43").request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+        assertThat(dedicatedVehicle.getString("brand"),containsString("43"));
+        assertThat(dedicatedVehicle.getString("brand"),equalTo("Opel 43"));
 
-        Response deleteResponse = this.target.path("44").request(MediaType.APPLICATION_JSON).delete();
+        Response deleteResponse = this.target.path("42").request(MediaType.APPLICATION_JSON).delete();
         assertThat(deleteResponse.getStatus(),is(204)); //no content
     }
 }
