@@ -22,11 +22,16 @@ public class VehicleEndpointT {
         this.target = client.target("http://localhost:8080/vehicle/api/vehicle");
     }
 
-    @Test
+    /*@Test
     public void fetchVehicle() {
         Response response = (Response) this.target.request(MediaType.TEXT_PLAIN).get();
         assertThat(response.getStatus(), is(200));
         String payload = response.readEntity(String.class);
         System.out.println("payload = " + payload);
+    }*/
+
+    @Test
+    public void crud() {
+
     }
 }
